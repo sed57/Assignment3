@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Bluth's Banana Stand";
+    self.title = @"Sean's Banana Stand";
     
     _allSelected = NO;
     
@@ -64,13 +64,30 @@
 //Should remove all of the fruit in the cart.
 -(IBAction)removeAllFruitInCart:(id)sender
 {
+    if([_cart count] > 0){
+        [_cart removeAllObjects]; //Clears the array of any objects
+        [_cartView reloadData]; //Reloads the view
+    }
     
 }
 
 //should add 50 bananas to the cart and display them!
 -(IBAction)fillCartWithBananas:(id)sender
 {
-    
+    if([_cart count] == 0){
+        for(int i = 0; i < 50; i++){
+            NSString * fruitName = [NSString stringWithFormat:@"Banana %d", i];
+            
+            if((i % 10) == 0){
+                fruitName = [NSString stringWithFormat:@"Free Banana %d", i];
+            }
+            
+            Fruit * anonFruit = [[Fruit alloc] initWithWithName:fruitName andColor:@"Yellow" andShape:@"Curved"];
+            anonFruit.url = @"http://en.m.wikipedia.org/wiki/Banana";
+            [_cart addObject:anonFruit];
+        }
+        [_cartView reloadData]; //reloads the view
+    }
 }
 
 
